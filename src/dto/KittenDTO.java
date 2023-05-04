@@ -1,6 +1,8 @@
+package dto;
+
 public class KittenDTO {
     private boolean alive;
-    private int paws;
+    private PawsDTO paws;
 
     public boolean isAlive() {
         return alive;
@@ -10,17 +12,17 @@ public class KittenDTO {
         this.alive = alive;
     }
 
-    public int getPaws() {
+    public PawsDTO getPaws() {
         return paws;
     }
 
-    public void setPaws(int paws) {
+    public void setPaws(PawsDTO paws) {
         this.paws = paws;
     }
 
     @Override
     public String toString() {
-        return "KittenDTO{" +
+        return "dto.KittenDTO{" +
                 "alive=" + alive +
                 ", paws=" + paws +
                 '}';

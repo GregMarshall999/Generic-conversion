@@ -1,6 +1,8 @@
+package entities;
+
 public class Kitten {
     private boolean alive;
-    private int paws;
+    private Paws paws;
 
     public boolean isAlive() {
         return alive;
@@ -10,11 +12,11 @@ public class Kitten {
         this.alive = alive;
     }
 
-    public int getPaws() {
+    public Paws getPaws() {
         return paws;
     }
 
-    public void setPaws(int paws) {
+    public void setPaws(Paws paws) {
         this.paws = paws;
     }
 }
