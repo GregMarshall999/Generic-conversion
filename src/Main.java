@@ -32,19 +32,6 @@ public class Main {
         service.convertTo(c, dto);
 
         System.out.println(dto);
-
-        /*
-        Test test = new Test();
-        Field[] declaredFields = test.getClass().getDeclaredFields();
-        ParameterizedType genericType = (ParameterizedType) declaredFields[0].getGenericType();
-        Class<?> actualTypeArgument = (Class<?>) genericType.getActualTypeArguments()[0];
-        try {
-            Object o = actualTypeArgument.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println("");*/
     }
 
     static class Test {
