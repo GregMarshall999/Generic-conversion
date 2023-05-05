@@ -17,31 +17,38 @@ public class Converter {
         //util.Pair<Method, Method> the first method is getter and second method is setter
         Map<Pair<String, Field>, Pair<Method, Method>> convertMethods = mapFieldMethods(convert);
         Map<Pair<String, Field>, Pair<Method, Method>> toMethods = mapFieldMethods(to);
+
         Pair<String, Field> convertKey;
+        List<Object> convertInnerList;
+        ParameterizedType innerType;
+        Class<?> innerTypeArgument;
+        Object innerConvertObject;
+        List<Object> toInnerList;
+        Object innerToObject;
+        Class<?> type;
 
         for(Pair<String, Field> key : toMethods.keySet()) {
             try {
                 convertKey = findSimilarKey(key, convertMethods.keySet());
                 if(convertKey != null && convertMethods.containsKey(convertKey)) {
                     if(!isPrimitive(key.getP1().getType())) { //We expect to more objects than primitives
-                        Class<?> type = key.getP1().getType();
-                        Object innerToObject;
+                        type = key.getP1().getType();
                         if(!type.getName().toLowerCase().contains("list")) {
                             innerToObject = type.getDeclaredConstructor().newInstance();
-                            Object innerConvertObject = convertMethods.get(convertKey).getP0().invoke(convert);
+                            innerConvertObject = convertMethods.get(convertKey).getP0().invoke(convert);
                             convertTo(innerConvertObject, innerToObject);
-                            toMethods.get(key).getP1()
-                                    .invoke(to, innerToObject);
+                            toMethods.get(key).getP1().invoke(to, innerToObject);
                         }
                         else {
-                            ParameterizedType innerType = (ParameterizedType) key.getP1().getGenericType();
-                            Class<?> innertTypeArgument = (Class<?>) innerType.getActualTypeArguments()[0];
-                            List<Object> convertInnerList = (List<Object>) convertMethods.get(convertKey).getP0().invoke(convert);
-                            List<Object> toInnerList = new ArrayList<>();
+                            innerType = (ParameterizedType) key.getP1().getGenericType();
+                            innerTypeArgument = (Class<?>) innerType.getActualTypeArguments()[0];
+                            convertInnerList = (List<Object>) convertMethods.get(convertKey).getP0()
+                                    .invoke(convert);
+                            toInnerList = new ArrayList<>();
 
-                            for(int i = 0; i < convertInnerList.size(); i++) {
-                                innerToObject = innertTypeArgument.getDeclaredConstructor().newInstance();
-                                convertTo(convertInnerList.get(i), innerToObject);
+                            for (Object o : convertInnerList) {
+                                innerToObject = innerTypeArgument.getDeclaredConstructor().newInstance();
+                                convertTo(o, innerToObject);
                                 toInnerList.add(innerToObject);
                             }
 
