@@ -4,6 +4,7 @@ import java.util.List;
 
 public class CatDTO extends BasicDTO {
     private boolean alive;
+    private String name;
     private PawsDTO paws;
     private List<KittenDTO> kittensDTO;
 
@@ -13,6 +14,14 @@ public class CatDTO extends BasicDTO {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public PawsDTO getPaws() {
@@ -35,6 +44,7 @@ public class CatDTO extends BasicDTO {
     public String toString() {
         return "CatDTO{" +
                 "alive=" + alive +
+                ", name='" + name + '\'' +
                 ", paws=" + paws +
                 ", kittensDTO=" + kittensDTO +
                 '}';

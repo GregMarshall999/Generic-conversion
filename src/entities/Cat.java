@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Cat extends BasicEntity {
     private boolean alive;
+    private String name;
     private Paws paws;
     private List<Kitten> kittens;
 
@@ -13,6 +14,14 @@ public class Cat extends BasicEntity {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Paws getPaws() {

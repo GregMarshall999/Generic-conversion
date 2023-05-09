@@ -1,5 +1,7 @@
 package util;
 
+import entities.BasicEntity;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -13,6 +15,28 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Converter {
+
+    /*
+    public <C, T> void convertTo(C convert, T to) {
+        Map<Pair<String, Field>, Pair<Method, Method>> convertFieldMethods = mapFieldMethods(convert);
+
+        convertFieldMethods.forEach((pk, pv) -> {
+            if(pk.getP0().equals("id")) {
+                try {
+                    Object invoke = pv.getP0().invoke(convert);
+                    pv.getP1().invoke(convert, invoke);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
+
+                System.out.println("test");
+            }
+        });
+
+        String s = "";
+    }*/
+
+
     public <C, T> void convertTo(C convert, T to) {
         //util.Pair<Method, Method> the first method is getter and second method is setter
         Map<Pair<String, Field>, Pair<Method, Method>> convertMethods = mapFieldMethods(convert);
@@ -69,9 +93,18 @@ public class Converter {
     private <O> Map<Pair<String, Field>, Pair<Method, Method>> mapFieldMethods(O object) {
         Map<Pair<String, Field>, Pair<Method, Method>> mapped = new HashMap<>();
 
-        List<Field> fields = Arrays.stream(object.getClass().getDeclaredFields()).toList();
+        //get current object fields and methods
+        List<Field> fields = new ArrayList<>(Arrays.stream(object.getClass().getDeclaredFields()).toList());
         Map<String, Method> methodMap = Arrays.stream(object.getClass().getDeclaredMethods())
                 .collect(Collectors.toMap(method -> method.getName().toLowerCase(), method -> method));
+
+        //we check if there is a superclass with extra fields to set
+        Class<?> superclass = object.getClass().getSuperclass();
+        if(superclass != null) {
+            fields.addAll(Arrays.stream(superclass.getDeclaredFields()).toList());
+            methodMap.putAll(Arrays.stream(superclass.getDeclaredMethods())
+                    .collect(Collectors.toMap(method -> method.getName().toLowerCase(), method -> method)));
+        }
 
         Pair<String, Field> stringField;
         Pair<Method, Method> getSet;
@@ -114,6 +147,7 @@ public class Converter {
                     "double",
                     "float",
                     "int", "integer",
+                    "java.lang.string",
                     "long",
                     "short" -> true;
             default -> false;
