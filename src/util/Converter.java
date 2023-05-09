@@ -15,28 +15,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Converter {
-
-    /*
-    public <C, T> void convertTo(C convert, T to) {
-        Map<Pair<String, Field>, Pair<Method, Method>> convertFieldMethods = mapFieldMethods(convert);
-
-        convertFieldMethods.forEach((pk, pv) -> {
-            if(pk.getP0().equals("id")) {
-                try {
-                    Object invoke = pv.getP0().invoke(convert);
-                    pv.getP1().invoke(convert, invoke);
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    throw new RuntimeException(e);
-                }
-
-                System.out.println("test");
-            }
-        });
-
-        String s = "";
-    }*/
-
-
     public <C, T> void convertTo(C convert, T to) {
         //util.Pair<Method, Method> the first method is getter and second method is setter
         Map<Pair<String, Field>, Pair<Method, Method>> convertMethods = mapFieldMethods(convert);
