@@ -2,7 +2,7 @@ package entities;
 
 import java.util.List;
 
-public class Cat {
+public class Cat extends BasicEntity {
     private boolean alive;
     private Paws paws;
     private List<Kitten> kittens;

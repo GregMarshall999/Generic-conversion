@@ -1,6 +1,6 @@
 package entities;
 
-public class Paws {
+public class Paws extends BasicEntity {
     private int amount;
 
     public int getAmount() {

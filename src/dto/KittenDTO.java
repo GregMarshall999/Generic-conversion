@@ -1,6 +1,6 @@
 package dto;
 
-public class KittenDTO {
+public class KittenDTO extends BasicDTO {
     private boolean alive;
     private PawsDTO paws;
 

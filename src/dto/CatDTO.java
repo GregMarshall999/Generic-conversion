@@ -2,7 +2,7 @@ package dto;
 
 import java.util.List;
 
-public class CatDTO {
+public class CatDTO extends BasicDTO {
     private boolean alive;
     private PawsDTO paws;
     private List<KittenDTO> kittensDTO;

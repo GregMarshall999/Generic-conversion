@@ -1,6 +1,6 @@
 package dto;
 
-public class PawsDTO {
+public class PawsDTO extends BasicDTO {
     private int amount;
 
     public int getAmount() {

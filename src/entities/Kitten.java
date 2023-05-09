@@ -1,6 +1,6 @@
 package entities;
 
-public class Kitten {
+public class Kitten extends BasicEntity {
     private boolean alive;
     private Paws paws;
 
